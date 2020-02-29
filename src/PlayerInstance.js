@@ -1,6 +1,6 @@
 'use strict';
 
-const Collection = require('./Collection');
+const Collection = require('@discordjs/collection');
 const LavalinkWebsocket = require('./LavalinkWebsocket');
 const Player = require('./Player');
 

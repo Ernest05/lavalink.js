@@ -15,10 +15,10 @@
 
 ```md
 # Using Yarn:
-yarn add lavalink.js
+yarn add ernest05/lavalink.js
 
 # Or using NPM:
-npm install lavalink.js
+npm install ernest05/lavalink.js
 ```
 
 ## Java JDK installation:

@@ -1,0 +1,23 @@
+name: Linter
+on: [push, pull_request]
+jobs:
+  lint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: action/checkout@v1
+
+      - name: Install Node v12
+        uses: action/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Install dependencies
+        run: npm Install
+
+      - name: Install ESLint
+        run: npm install eslint --save-dev
+
+      - name: Run ESLint
+        uses: icrawl/action-eslint@v1

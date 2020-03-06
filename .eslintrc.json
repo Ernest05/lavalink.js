@@ -1,0 +1,31 @@
+{
+  "env": {
+    "commonjs": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": "eslint:recommended",
+  "globals": {
+    "Atomics": "readonly",
+    "Map": true,
+    "Promise": true,
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "rules": {
+    "eqeqeq": "warn",
+    "semi": "warn",
+    "curly": "warn",
+    "no-empty": "warn",
+    "valid-jsdoc": "warn",
+    "no-extra-semi": "warn",
+    "no-unused-vars": "warn",
+    "no-undef": "error"
+  }
+}

@@ -1,3 +1,10 @@
+# Git Ignore file
+
+# IntelliJ project files
 .idea
+
+# Dependency directory
 node_modules
-example/eris
+
+# Optional npm cache directory
+.npm

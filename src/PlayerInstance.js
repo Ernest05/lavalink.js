@@ -2,13 +2,6 @@
 
 const LavalinkWebsocket = require('./LavalinkWebsocket');
 const Player = require('./Player');
-let engine;
-
-if (require('discord.js')) {
-    engine = 'discordjs';
-} else if (require('eris')) {
-    engine = 'eris';
-}
 
 /**
  * Player instance
@@ -20,6 +13,7 @@ module.exports = class PlayerInstance {
      * @constructor
      * @param {Object} client The Discord client
      * @param {Array<Object>} servers Array witch contains Lavalink server or servers if several
+     * @param {string} engine The library you use for the bot
      * @property {Object} client The Discord client
      * @property {Array<Object>} servers Array of nodes
      * @property {Object} servers Lavalink servers storage object
@@ -28,9 +22,12 @@ module.exports = class PlayerInstance {
      * @property {number} shardCount The number of shards
      * @property {Player} Player Lavalink player
      */
-    constructor (client, servers) {
+    constructor (client, servers, engine) {
         if (!client || typeof client !== 'object') {
             throw new Error('Please provide a valid Discord client!');
+        }
+        if (engine !== 'discordjs' || engine !== 'eris') {
+            throw new Error('Please indicated a valid engine! discordjs for Discord.js or eris for Eris.');
         }
 
         this.client = client;

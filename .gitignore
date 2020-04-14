@@ -1,0 +1,5 @@
+.idea
+node_modules
+example/eris
+example/discord.js
+yarn.lock

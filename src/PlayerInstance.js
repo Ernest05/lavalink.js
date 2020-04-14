@@ -15,6 +15,7 @@ module.exports = class PlayerInstance {
      * @param {Array<Object>} servers Array witch contains Lavalink server or servers if several
      * @param {string} engine The library you use for the bot
      * @property {Object} client The Discord client
+     * @property {string} engine The library you use for the bot
      * @property {Array<Object>} servers Array of nodes
      * @property {Object} servers Lavalink servers storage object
      * @property {Object} players Lavalink players object
@@ -31,18 +32,19 @@ module.exports = class PlayerInstance {
         }
 
         this.client = client;
+        this.engine = engine;
         this.servers = servers;
         this.serversStorage = {};
         this.players = {};
         this.clientID = this.client.user.id;
-        this.shardCount = engine === 'discordjs' ? (this.client.shard.count ? this.client.shard.count : 1) : this.client.shards.size;
+        this.shardCount = this.engine === 'discordjs' ? (this.client.shard.count ? this.client.shard.count : 1) : this.client.shards.size;
         this.Player = Player;
 
         servers.forEach(server => {
             this.createServer(server);
         });
 
-        this.client.on(engine === 'discordjs' ? 'raw' : 'rawWS', async packet => {
+        this.client.on(this.engine === 'discordjs' ? 'raw' : 'rawWS', async packet => {
             if (packet.t === 'VOICE_SERVER_UPDATE') {
                 await this.voiceServerUpdate(packet.d);
             }
@@ -131,7 +133,7 @@ module.exports = class PlayerInstance {
         if (player) {
             return player;
         } else {
-            switch (engine) {
+            switch (this.engine) {
                 case 'discordjs': {
                     const channel = this.client.guilds.cache.get(options.guildID).channels.cache.get(options.channelID);
 
@@ -253,14 +255,14 @@ module.exports = class PlayerInstance {
             return;
         }
         
-        const guild = engine === 'discordjs' ? this.client.guilds.cache.get(packet.guild_id) : this.client.guilds.get(packet.guild_id);
+        const guild = this.engine === 'discordjs' ? this.client.guilds.cache.get(packet.guild_id) : this.client.guilds.get(packet.guild_id);
 
         if (!guild) {
             return;
         }
 
         player.connect({
-            session: engine === 'discordjs' ? guild.me.voice.sessionID : guild.voiceStates.get(this.client.user.id).sessionID,
+            session: this.engine === 'discordjs' ? guild.me.voice.sessionID : guild.voiceStates.get(this.client.user.id).sessionID,
             event: packet
         });
     }
@@ -273,7 +275,7 @@ module.exports = class PlayerInstance {
      * @returns {void}
      */
     sendWS (packet) {
-        switch (engine) {
+        switch (this.engine) {
             case 'discordjs': {
                 return typeof this.client.ws.send === 'function' ? this.client.ws.send(packet) : this.client.guilds.cache.get(packet.d.guild_id).shard.send(packet);
             }

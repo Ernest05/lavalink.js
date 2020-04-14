@@ -1,0 +1,46 @@
+{
+  "name": "@ernest05/lavalink-js",
+  "version": "1.0.2",
+  "description": "A Lavalink wrapper for Discord bots using Discord.js and Eris.",
+  "main": "index.js",
+  "repository": "https://github.com/Ernest05/lavalink.js.git",
+  "author": "Ernest05",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "eventemitter3": "^4.0.0",
+    "node-fetch": "^2.6.0",
+    "ws": "^7.2.1"
+  },
+  "devDependencies": {
+    "discord.js": "^12.1.1",
+    "eris": "^0.11.2",
+    "eslint": "^6.8.0"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 9,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "env": {
+      "node": true
+    },
+    "globals": {
+      "Map": true,
+      "Promise": true
+    },
+    "rules": {
+      "eqeqeq": "warn",
+      "semi": "warn",
+      "curly": "warn",
+      "no-empty": "warn",
+      "valid-jsdoc": "warn",
+      "no-extra-semi": "warn",
+      "no-unused-vars": "warn",
+      "no-undef": "error"
+    }
+  }
+}

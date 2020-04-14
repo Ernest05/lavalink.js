@@ -27,8 +27,9 @@ module.exports = class PlayerInstance {
         if (!client || typeof client !== 'object') {
             throw new Error('Please provide a valid Discord client!');
         }
-        if (engine !== 'discordjs' || engine !== 'eris') {
-            throw new Error('Please indicated a valid engine! discordjs for Discord.js or eris for Eris.');
+
+        if (!['discordjs', 'eris'].some(e => e === engine)) {
+            throw new Error('Please indicate a valid engine! discordjs for Discord.js or eris for Eris.');
         }
 
         this.client = client;
@@ -37,7 +38,7 @@ module.exports = class PlayerInstance {
         this.serversStorage = {};
         this.players = {};
         this.clientID = this.client.user.id;
-        this.shardCount = this.engine === 'discordjs' ? (this.client.shard.count ? this.client.shard.count : 1) : this.client.shards.size;
+        this.shardCount = this.engine === 'discordjs' ? this.client.shard.count : this.client.shards.size;
         this.Player = Player;
 
         servers.forEach(server => {

@@ -144,6 +144,22 @@ module.exports = class PlayerInstance {
                     if (!channel.permissionsFor(this.client.user.id).has('CONNECT') || !channel.permissionsFor(this.client.user.id).has('SPEAK')) {
                         throw new Error('I don\'t have the right permissions to connect and speak in this voice channel.');
                     }
+
+                    this.sendWS({
+                        op: 4,
+                        d: {
+                            guild_id: options.guildID,
+                            channel_id: options.channelID,
+                            self_mute: options.muted,
+                            self_deaf: options.deafen
+                        }
+                    });
+        
+                    return this.returnPlayer({
+                        host: options.host,
+                        guildID: options.guildID,
+                        channelID: options.channelID
+                    });
                 }
 
                 case 'eris': {
@@ -155,24 +171,24 @@ module.exports = class PlayerInstance {
                     if (!channel.permissionsOf(this.client.user.id).has('voiceConnect') || !channel.permissionsOf(this.client.user.id).has('voiceSpeak')) {
                         throw new Error('I don\'t have the right permissions to connect and speak in this voice channel.');
                     }
+
+                    this.sendWS({
+                        op: 4,
+                        d: {
+                            guild_id: options.guildID,
+                            channel_id: options.channelID,
+                            self_mute: options.muted,
+                            self_deaf: options.deafen
+                        }
+                    });
+        
+                    return this.returnPlayer({
+                        host: options.host,
+                        guildID: options.guildID,
+                        channelID: options.channelID
+                    });
                 }
             }
-
-            this.sendWS({
-                op: 4,
-                d: {
-                    guild_id: options.guildID,
-                    channel_id: options.channelID,
-                    self_mute: options.muted,
-                    self_deaf: options.deafen
-                }
-            });
-
-            return this.returnPlayer({
-                host: options.host,
-                guildID: options.guildID,
-                channelID: options.channelID
-            });
         }
     }
 
